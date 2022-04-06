@@ -20,12 +20,14 @@ import org.springframework.security.core.userdetails.User;
 @Setter
 public class SecurityUser extends User {
 
+    private Long seq;
     private String userid;
     private String passwd;
     private String status;
     private String username;
     private String salt;
     private String email;
+    private String role;
 
     // 결제정보
     private String domain;
@@ -37,6 +39,8 @@ public class SecurityUser extends User {
 
     public SecurityUser(com.hamonize.portal.user.User user) {
         super(user.getUserid(), user.getPasswd(), makeGrantedAuthority()); 
+        
+        this.seq = user.getSeq();
         this.userid = user.getUserid();
         this.passwd = user.getPasswd();
         this.username = user.getUsername();
@@ -44,6 +48,7 @@ public class SecurityUser extends User {
         this.domain = user.getDomain();
         this.email = user.getEmail();
         this.status = user.getStatus();
+        this.role = user.getRole();
     }
 
     private static Set<GrantedAuthority> makeGrantedAuthority() {
